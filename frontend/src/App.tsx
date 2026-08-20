@@ -4,7 +4,7 @@ interface AnalyzedHorse {
   horse_name: string;
   jockey: string;
   trainer: string;
-  odds: float;
+  odds: number;
   rating: number;
   model_prob: number;
   market_prob: number;
@@ -63,7 +63,7 @@ export default function App() {
     };
 
     try {
-      const response = await fetch('http://localhost:8000/api/races/', {
+      const response = await fetch('https://turfcontent-backend.onrender.com/api/races/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -201,7 +201,7 @@ export default function App() {
               </div>
 
               <button 
-                onClick={() => alert(`Generando video vertical para ${horse.horse_name}... (Próximamente conexión de render cloud)`)}
+                onClick={() => alert(`Generando video vertical para ${horse.horse_name}...`)}
                 className="w-full mt-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2.5 rounded-xl text-xs transition-all flex items-center justify-center gap-2 shadow"
               >
                 🎬 GENERAR VIDEO 9:16
