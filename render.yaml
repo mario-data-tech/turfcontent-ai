@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: turfcontent-backend
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: |
+      apt-get update && apt-get install -y ffmpeg
+      cd backend
+      pip install -r requirements.txt
+    startCommand: cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: turfcontent-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: STORAGE_PROVIDER
+        value: local
+      - key: LLM_PROVIDER
+        value: mock
+      - key: TTS_PROVIDER
+        value: edge
+
+databases:
+  - name: turfcontent-db
+    plan: free
+    databaseName: turfcontent
+    user: turfuser
